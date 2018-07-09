@@ -1,0 +1,15 @@
+---
+- hosts: [kavin]
+  sudo: yes
+  tasks:
+  - name: Install Apache
+    yum: name={{ item }} state=present
+    with_items:
+    - httpd
+    - httpd-devel
+  - name: start apache
+    service: name=httpd state=started enabled=yes 
+  - name: stop apache
+    service: name=httpd state=stopped enabled=yes
+
+
