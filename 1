@@ -1,0 +1,23 @@
+---
+- hosts: [TEST]
+  tasks:
+#  - name: shell
+#    shell: wget -r --user='svnuser' --password='uzy&Vv>Le(4Z<f' ftp://svnuser@ftpbackup.exterro.info/internal/DevOps/eagle/eagle.zip
+#   dest: /root/playbooks
+#    remote_src: no
+  - name: FTP
+    get_url:
+     url: ftp://[svnsuer[:uzy&Vv>Le(4Z<f]]@ftpbackup.exterro.info[:21]/NC/29-03-2018/integration.jar
+     dest: /root
+     remote_src: yes
+#  - name: copy
+#    copy:
+#     src: /opt/tomcat/lib/fusionlib/coreUtil.jar
+#     dest: /opt/
+#     remote_src: yes
+#  - name: remove
+#    command: rm /opt/tomcat/lib/fusionlib/coreUtil.jar
+#  - name: copy
+#    copy:
+#     src: /home/centos/coreUtil.jar
+#     dest: /opt/tomcat/lib/fusionlib/

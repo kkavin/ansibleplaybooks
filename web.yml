@@ -1,0 +1,10 @@
+---
+- hosts: [TEST]
+  tasks:
+   - name: Install HTTPD
+     yum: pkg=httpd24 state=installed
+     notify:
+       - start httpd
+  handlers:
+   - name: start httpd
+     service: name=httpd state=started

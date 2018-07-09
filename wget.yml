@@ -1,0 +1,34 @@
+---
+- hosts: [kavin]
+  vars:
+    namespace: ansible
+    ftp_username: exterroqauser
+    ftp_password: '2S&8Qa#evMRt\.PY'
+    ftp_location: qa-stagefusion.exterro.info
+    tomcat_dir: /exterro/services/tomcat
+    backup_dir: /exterro/services/backup/{{ date1 }}/
+    date1: backup_{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}
+    date: patch_{{ lookup('pipe', 'date +%Y%m%d') }}
+    patch_dir: "{{ date }}"
+  tasks:
+#    - name: restart fusion
+#      service: name=fusion state=stopped
+    - name: Prepare download folder
+      sudo: true
+      action: shell sudo mkdir -p /root/{{ date }}
+#    - name: Fix permissions
+#      shell: 'chmod 755 -R /root/{{ date }}'
+#      shell: 'chown exterro:exterro -R /root/{{ date }}'
+    - name: download file from ftp
+      sudo: true
+      shell: "chdir=/root/{{ date }} wget --user={{ ftp_username }} --password='{{ ftp_password }}' ftp://{{ ftp_location }}{{ location }}"
+#    - name: copy and backup file
+#      action: shell mkdir -p {{ backup_dir }}
+#    - name: backup file
+#      action: shell cp -r {{ tomcat_dir }}/deploy/* {{ backup_dir }}
+#    - name: Move file
+#      action: shell cp -r {{ date }}/* {{ tomcat_dir }}/deploy/
+#    - name: start fusion
+#      service: name=fusion state=started
+#    - name: Delete Patch download
+#      shell: rm -rf {{ date }}

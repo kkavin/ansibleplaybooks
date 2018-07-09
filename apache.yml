@@ -1,0 +1,11 @@
+---
+- hosts: [TEST]
+  tasks:
+#   - name: ensure apache is installed
+#     yum: pkg=httpd state=latest
+   - name: ensure apache is running
+     service: name=httpd state=running enabled=yes
+   - name: stop apache
+     service: name=httpd state=stopped
+   - name: start apache
+     service: name=httpd state=started

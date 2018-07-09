@@ -1,0 +1,51 @@
+---
+- hosts: kavin
+  become: yes
+  become_user: root
+  vars:
+    namespace: ansible
+    tomcat_folder: '/root/apache-tomcat-8.5.31'
+    java_path: '/opt/jdk-10.0.1'
+    symlink: '/etc/init.d/tomcat'
+  tasks:
+   - name: update
+     yum: name=*
+     state: latest
+#   - name: copy java
+#     copy:
+#       src: /root/jdk-10.0.1_linux-x64_bin.tar.gz
+#       dest: /root/
+#   - name: extract java
+#     unarchive:
+#       src: /root/jdk-10.0.1_linux-x64_bin.tar.gz
+#       dest: /root/
+#       mode: 0755
+#   - name: move java to  opt
+#     shell: cp -r /root/jdk-10.0.1 /opt/
+#     mode: 0755
+#   - name: correct java version selected
+#     alternatives:
+#     name: java
+#     path: '{{ java_path }}/bin/java'
+#   - name: copy tomcat
+#     copy:
+#       src: /root/apache-tomcat-8.5.31.tar.gz
+#       dest: /root/
+#   - name: extract tomcat
+#     unarchive:
+#       src: /root/apache-tomcat-8.5.31.tar.gz
+#       dest: /root/
+   - name: Create file for symlink
+     file:
+       path: /etc/init.d/tomcat
+       state: touch
+       mode: 0755
+   - name: symlink
+     file:
+       src: '{{ tomcat_folder }}/bin/startup.sh'
+       dest: '{{ symlink }}'
+       state: link
+   - name: start tomcat
+     service: 
+     name: tomcat
+     state: started

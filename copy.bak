@@ -1,0 +1,16 @@
+--- 
+- 
+copy: 
+dest: /opt/
+remote_src: true
+src: /opt/tomcat/lib/fusionlib/coreUtil.jar
+handlers: 
+- 
+name: "Patch backup"
+hosts: 
+- TEST
+tasks: 
+- 
+name: "JAR Patch"
+notify: 
+- "Patch backup"

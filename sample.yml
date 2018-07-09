@@ -1,0 +1,13 @@
+--- 
+- hosts: 
+    - TEST
+  tasks: 
+    actions: "cd \"{{ patch_dir }}\""
+    shell: "wget --user= \"{{ ftp_username }}\" --password= \"{{ftp_password }}\" ftp:// \"{{ ftp_location }}\" \"{{ location }}\""
+  vars: 
+    ftp_location: "qa-stagefusion.exterro.info \"{{ location }}\""
+    ftp_password: "2S&8Qa#evMRt\\.PY"
+    ftp_username: exterroqauser
+    namespace: ansible
+    patch_dir: "/root/patch_`date +%F.%H:%M:%S`"
+    tomcat_dir: /exterro/services/tomcat

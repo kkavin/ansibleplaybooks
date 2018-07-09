@@ -1,0 +1,14 @@
+---
+- hosts: [kavin]
+  vars: 
+    namespace: ansible
+    ftp_location: ftpbackup.exterro.info
+  tasks:
+    - name: mkdir
+      action: shell sudo mkdir -p /root/kavin
+#    - name: change permission
+#      action: shell chdir=/root/kavin
+    - name: download
+      sudo: yes
+      shell: "wget --user='{{ ftp_username }}' --password='{{ ftp_password }}' ftp://{{ ftp_location }}{{ location }}"
+

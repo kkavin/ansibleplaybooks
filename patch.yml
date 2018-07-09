@@ -1,0 +1,6 @@
+---
+- hosts: [TEST]
+  tasks:
+  - name: shell
+    shell: /root/patch.sh
+    dest: /root/playbooks

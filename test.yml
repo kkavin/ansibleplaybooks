@@ -1,0 +1,6 @@
+---
+name: verify VNC port is accessible
+local_action:
+ wait_for host:  port=5900 delay=10
+ tags: test
+ become: yes
