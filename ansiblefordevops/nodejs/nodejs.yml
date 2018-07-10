@@ -1,0 +1,46 @@
+---
+- hosts: [kavin]
+  sudo: yes
+  vars: 
+    node_location: /usr/local/opt/node
+  tasks:
+  - name: Import EPEL and Remi GPG keys
+    rpm_key: "key={{ item }} state=present"
+    with_items:
+    - "https://fedoraproject.org/static/0608B895.txt" 
+    - "http://rpms.famillecollet.com/RPM-GPG-KEY-remi" 
+  - name: Install EPEL and Remi repos
+    command: "rpm -Uvh --force {{ item.href }} creates={{ item.creates }}"
+    with_items:
+    - { href: "http://download.fedoraproject.org/pub/epel/6/i386/epel-relea     se-6-8.no\ 16 arch.rpm", 
+        creates: "/etc/yum.repos.d/epel.repo" 
+      }
+    - { href: "http://rpms.famillecollet.com/enterprise/remi-release-6.rpm", 
+        creates: "/etc/yum.repos.d/remi.repo"
+      }
+  - name: Disable firewall
+    service: name=iptables state=stopped enabled=no
+  - name: Install Node.js and npm
+    yum: name=npm state=present enablerepo=epel
+  - name: Install Node foreever
+    npm: name=forever global=yes state=latest
+  - name: Ensure nodejs folder exists
+    file: 
+      path: '{{ node_location }}' 
+      state: directory
+  - name: Copy app.js file to the server
+    copy: 
+      src: /root/playbooks/ansiblefordevops/app 
+      dest: '{{ node_location }}'
+  - name: Install the app dependecies 
+    npm:  
+      path: "{{ node_location}}/app"
+#  - name: Check list of running node.js apps
+#    command: forever list
+#    register: forever_list
+#    changed_when: false
+#  - name: start the node.js app
+#    command: "forever start {{ node_location }}/app/app.js"
+#    when: "forever_list.stdout.find('{{ node_location }}/app/app.js) == -1"
+ 
+
