@@ -2,11 +2,11 @@
 - hosts: [kavin]
   vars:
     namespace: ansible
-    ftp_username: exterroqauser
-    ftp_password: '2S&8Qa#evMRt\.PY'
-    ftp_location: qa-stagefusion.exterro.info
-    tomcat_dir: /exterro/services/tomcat
-    backup_dir: /exterro/services/backup/{{ date1 }}/
+    ftp_username: username
+    ftp_password: 'password'
+    ftp_location: url
+    tomcat_dir: path/to/folder/
+    backup_dir: path/to/folder/{{ date1 }}/
     date1: backup_{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}
     date: patch_{{ lookup('pipe', 'date +%Y%m%d') }}
     patch_dir: "{{ date }}"

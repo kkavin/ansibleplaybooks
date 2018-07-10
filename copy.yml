@@ -4,21 +4,21 @@
 #  - name: run platform-specific module
 #    action: "linux_mymodule.py"
 #  ansible_user: administrator
-#  ansible_password: exterro-123
+#  ansible_password: *****
 #  ansible_port: 5985
 #  ansible_connection: winrm
 #  ansible_winrm_scheme: http
 #  ansible_winrm_server_cert_validation: ignore
 #  - name: shell
-#    shell: wget -r --user='svnuser' --password='uzy&Vv>Le(4Z<f' ftp://svnuser@ftpbackup.exterro.info/internal/DevOps/eagle/eagle.zip
+#    shell: wget -r --user='svnuser' --password='******' path/to/file
 #   dest: /root/playbooks
 #    remote_src: no
   - name: FTP
     get_url:
-     url: ftp://svnuser@ftpbackup.exterro.info/internal/DevOps/eagle/
+     url: ftp://****
 #     force_basic_auth: true
      url_username: svnuser
-     url_password: Gz/VyKUGhu#6rH5
+     url_password: ****
 #     use_proxy: true
 #     validate_certs: true
      dest: /root/playbooks
