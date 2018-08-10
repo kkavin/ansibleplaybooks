@@ -1,0 +1,31 @@
+---
+- hosts: kavin
+  sudo: yes
+  tasks:
+    - name: install httpd
+      yum: name=httpd update_cache=yes state=latest
+    - name: enabled mod_rewrite
+      apache2_module: name=rewrite state=present
+    - name: ensure apache is running
+      service: name=httpd state=running enabled=yes
+    - name: stop apache
+      service: name=httpd state=stopped
+    - name: Copy the index.html
+      copy:
+        src: /root/playbooks/index.html
+        dest: /var/www/html
+    - name: start apache
+      service: name=httpd state=started
+- hosts: haproxy
+  tasks:
+    - name: install haproxy
+      yum: name=haproxy state=present
+    - name: Update HAProxy config
+      copy: 
+        src: /root/playbooks/templates/haproxy.cfg 
+        dest: /etc/haproxy/haproxy.cfg 
+        backup: yes
+    - name: stop haproxy
+      service: name=haproxy state=stopped
+    - name: start haproxy
+      service: name=haproxy state=started
