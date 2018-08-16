@@ -1,0 +1,26 @@
+--- 
+- hosts: 172.31.29.150
+  tasks:
+   - name: Copy the file
+     copy:
+      src: /root/playbooks/templates/1.txt
+      dest: /root/
+   - name: Fetch 
+     fetch:
+      src: /root/fetch/test.txt
+      dest: /root/
+      flat: yes
+   - name: lineinfile
+     lineinfile:
+      path: /etc/hosts
+      regexp: '^127\.0\.0\.1'
+      line: '127.0.0.1 localhost'
+      owner: root
+      group: root
+      mode: 0644
+   - name: line    
+     lineinfile:
+       path: /tmp/httpd/httpd.conf
+       regexp: '^Listen '
+       insertafter: '^#Listen '
+       line: 'Listen 800' 
