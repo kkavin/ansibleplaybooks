@@ -2,7 +2,7 @@
 - hosts: [kavin]
   vars: 
     namespace: ansible
-    ftp_location: ftpbackup.exterro.info
+    ftp_location: ftpbackup.kavin.info
   tasks:
     - name: mkdir
       action: shell sudo mkdir -p /root/kavin
